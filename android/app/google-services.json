@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "318837877708",
-    "project_id": "prueba-438c5",
-    "storage_bucket": "prueba-438c5.appspot.com"
+    "project_number": "942800220603",
+    "project_id": "sw1-p2",
+    "storage_bucket": "sw1-p2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:318837877708:android:35b7966f44739ad4ab4b69",
+        "mobilesdk_app_id": "1:942800220603:android:af5af5edc666910d22149e",
         "android_client_info": {
           "package_name": "com.example.fire_base_evento"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "318837877708-mim284m6fu5p82shqdckh7sf4i5298b3.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCRg6I7FLiL1Zyo5iLnr_T8njdHOPa5EQ0"
+          "current_key": "AIzaSyDVed5Wjub7Wbz66ZJ43AqpBbnPVXA18dg"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "318837877708-mim284m6fu5p82shqdckh7sf4i5298b3.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

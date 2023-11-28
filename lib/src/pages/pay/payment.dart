@@ -1,7 +1,6 @@
 import 'package:fire_base_evento/src/providers/pay_provide.dart';
 import 'package:fire_base_evento/src/services/eventoservice.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:provider/provider.dart';
 
@@ -28,13 +27,14 @@ class Payment extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
-          image: !useBackgroundImage
-              ? const DecorationImage(
-                  image: ExactAssetImage('images/bg.png'),
-                  fit: BoxFit.fill,
-                )
-              : null,
-          color: Colors.black,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.pink,
+              Colors.purple,
+            ],
+          ),
         ),
         child: SafeArea(
           child: Column(
@@ -49,12 +49,12 @@ class Payment extends StatelessWidget {
                 expiryDate: expiryDate,
                 cardHolderName: cardHolderName,
                 cvvCode: cvvCode,
-                bankName: 'Axis Bank',
+                bankName: 'BNB',
                 showBackView: isCvvFocused,
                 obscureCardNumber: true,
                 obscureCardCvv: true,
                 isHolderNameVisible: true,
-                cardBgColor: Colors.red,
+                cardBgColor: Colors.green,
                 backgroundImage:
                     useBackgroundImage ? 'images/card_bg.png' : null,
                 isSwipeGestureEnabled: true,
@@ -72,128 +72,67 @@ class Payment extends StatelessWidget {
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      CreditCardForm(
-                        formKey: formKey,
-                        obscureCvv: true,
-                        obscureNumber: true,
-                        cardNumber: cardNumber,
-                        cvvCode: cvvCode,
-                        isHolderNameVisible: true,
-                        isCardNumberVisible: true,
-                        isExpiryDateVisible: true,
-                        cardHolderName: cardHolderName,
-                        expiryDate: expiryDate,
-                        themeColor: Colors.blue,
-                        textColor: Colors.white,
-                        cardNumberDecoration: InputDecoration(
-                          labelText: 'Number',
-                          hintText: 'XXXX XXXX XXXX XXXX',
-                          hintStyle: const TextStyle(color: Colors.white),
-                          labelStyle: const TextStyle(color: Colors.white),
-                          focusedBorder: border,
-                          enabledBorder: border,
+                  child: Container(
+                    padding: EdgeInsetsDirectional.symmetric(horizontal: 16),
+                    child: Column(
+                      children: <Widget>[
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            labelText: 'Número de Tarjeta',
+                            prefixIcon: Icon(Icons.credit_card),
+                            border: OutlineInputBorder(),
+                          ),
                         ),
-                        expiryDateDecoration: InputDecoration(
-                          hintStyle: const TextStyle(color: Colors.white),
-                          labelStyle: const TextStyle(color: Colors.white),
-                          focusedBorder: border,
-                          enabledBorder: border,
-                          labelText: 'Expired Date',
-                          hintText: 'XX/XX',
+                        SizedBox(height: 16.0),
+
+                        // Fecha de Vencimiento
+                        TextField(
+                          keyboardType: TextInputType.datetime,
+                          decoration: InputDecoration(
+                            labelText: 'Fecha de Vencimiento',
+                            prefixIcon: Icon(Icons.calendar_today),
+                            border: OutlineInputBorder(),
+                          ),
                         ),
-                        cvvCodeDecoration: InputDecoration(
-                          hintStyle: const TextStyle(color: Colors.white),
-                          labelStyle: const TextStyle(color: Colors.white),
-                          focusedBorder: border,
-                          enabledBorder: border,
-                          labelText: 'CVV',
-                          hintText: 'XXX',
+                        SizedBox(height: 16.0),
+
+                        // CVV
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            labelText: 'CVV',
+                            prefixIcon: Icon(Icons.lock),
+                            border: OutlineInputBorder(),
+                          ),
                         ),
-                        cardHolderDecoration: InputDecoration(
-                          hintStyle: const TextStyle(color: Colors.white),
-                          labelStyle: const TextStyle(color: Colors.white),
-                          focusedBorder: border,
-                          enabledBorder: border,
-                          labelText: 'Card Holder',
+                        const SizedBox(
+                          height: 20,
                         ),
-                        onCreditCardModelChange: onCreditCardModelChange,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          const Text(
-                            'Glassmorphism',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
-                          // Switch(
-                          //   value: useGlassMorphism,
-                          //   inactiveTrackColor: Colors.grey,
-                          //   activeColor: Colors.white,
-                          //   activeTrackColor: Colors.green,
-                          //   onChanged: (bool value) => setState(() {
-                          //     useGlassMorphism = value;
-                          //   }),
-                          // ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          const Text(
-                            'Card Image',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
+                          child: Container(
+                            margin: const EdgeInsets.all(12),
+                            child: const Text(
+                              'Pagar',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'halter',
+                                fontSize: 14,
+                                package: 'flutter_credit_card',
+                              ),
                             ),
                           ),
-                          // Switch(
-                          //   value: useBackgroundImage,
-                          //   inactiveTrackColor: Colors.grey,
-                          //   activeColor: Colors.white,
-                          //   activeTrackColor: Colors.green,
-                          //   onChanged: (bool value) => setState(() {
-                          //     useBackgroundImage = value;
-                          //   }),
-                          // ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          // backgroundColor: const Color(0xff1b447b),
-                        ),
-                        child: Container(
-                          margin: const EdgeInsets.all(12),
-                          child: const Text(
-                            'Validate',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'halter',
-                              fontSize: 14,
-                              package: 'flutter_credit_card',
-                            ),
-                          ),
-                        ),
-                        onPressed: () async {
-                          if (formKey.currentState!.validate()) {
+                          onPressed: () async {
                             EventoService eventoService = EventoService();
                             await eventoService.setVenta(
                                 payProvider.fotos, payProvider.uidEvento);
                             payProvider.vaciarPhotos();
-                            payProvider.setUidEvento('');  
+                            payProvider.setUidEvento('');
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -214,13 +153,10 @@ class Payment extends StatelessWidget {
                                 );
                               },
                             );
-                            print('valid!');
-                          } else {
-                            print('invalid!');
-                          }
-                        },
-                      ),
-                    ],
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

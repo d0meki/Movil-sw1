@@ -38,12 +38,12 @@ class _HomeState extends State<Home> {
         Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
               colors: [
-                Color.fromRGBO(4, 9, 35, 1),
-                Color.fromRGBO(39, 105, 171, 1),
+                Colors.pink,
+                Colors.purple,
               ],
-              begin: FractionalOffset.bottomCenter,
-              end: FractionalOffset.topCenter,
             ),
           ),
         ),
@@ -62,8 +62,10 @@ class _HomeState extends State<Home> {
                         onPressed: () async {
                           Navigator.of(context).pushNamedAndRemoveUntil(
                               'login_page', (Route<dynamic> route) => false);
-                          SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-                          final List<String> items = sharedPreferences.getStringList('acces_token')!;
+                          SharedPreferences sharedPreferences =
+                              await SharedPreferences.getInstance();
+                          final List<String> items =
+                              sharedPreferences.getStringList('acces_token')!;
                           items.removeAt(1);
                           sharedPreferences.setStringList('acces_token', items);
                         },

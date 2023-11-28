@@ -1,6 +1,6 @@
 import 'package:fire_base_evento/src/services/authservice.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fire_base_evento/widgets/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../services/eventoservice.dart';
@@ -146,7 +146,7 @@ class _LoginState extends State<Login> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50)),
                         onPressed: () async {
-                          User? user =
+                         /*  User? user =
                               await _authService.loginUsingEmailPassword(
                                   //loginUsingEmailPassword
                                   email: _emailController.text,
@@ -170,7 +170,7 @@ class _LoginState extends State<Login> {
                             Navigator.pushNamed(context, "home");
                           } else {
                             Widgets.alertSnackbar(context, "Datos incorrectos");
-                          }
+                          } */
                         },
                         child: const Center(
                             child: Text(

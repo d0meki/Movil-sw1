@@ -17,13 +17,19 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -46,31 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCyZzew4sYtfBLWeinA3Fp0FgoHg8bPCfw',
-    appId: '1:318837877708:web:ec9197025a620cebab4b69',
-    messagingSenderId: '318837877708',
-    projectId: 'prueba-438c5',
-    authDomain: 'prueba-438c5.firebaseapp.com',
-    storageBucket: 'prueba-438c5.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCRg6I7FLiL1Zyo5iLnr_T8njdHOPa5EQ0',
-    appId: '1:318837877708:android:35b7966f44739ad4ab4b69',
-    messagingSenderId: '318837877708',
-    projectId: 'prueba-438c5',
-    storageBucket: 'prueba-438c5.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBLTm4r92Cg-hTCLB_nrra5ifpygN2wjlw',
-    appId: '1:318837877708:ios:83f8ee7de83c9801ab4b69',
-    messagingSenderId: '318837877708',
-    projectId: 'prueba-438c5',
-    storageBucket: 'prueba-438c5.appspot.com',
-    iosClientId:
-        '318837877708-7t3jdjm33v5tb9n3dbl681l1gg371tup.apps.googleusercontent.com',
-    iosBundleId: 'com.example.fireBaseEvento',
+    apiKey: 'AIzaSyDVed5Wjub7Wbz66ZJ43AqpBbnPVXA18dg',
+    appId: '1:942800220603:android:af5af5edc666910d22149e',
+    messagingSenderId: '942800220603',
+    projectId: 'sw1-p2',
+    storageBucket: 'sw1-p2.appspot.com',
   );
 }

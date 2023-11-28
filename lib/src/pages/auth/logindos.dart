@@ -21,164 +21,198 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.grey[300],
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 50),
+      backgroundColor: Colors.purple,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.pink,
+              Colors.purple,
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 50),
 
-              // logo
-              const Icon(
-                Icons.photo_camera,
-                size: 100,
-                color: Colors.black,
-              ),
-
-              const SizedBox(height: 50),
-
-              // welcome back, you've been missed!
-              Text(
-                'Welcome back you\'ve been missed!',
-                style: TextStyle(
-                  color: Colors.grey[700],
-                  fontSize: 16,
+                // logo
+                /* const Icon(
+                  Icons.photo_camera,
+                  size: 100,
+                  color: Colors.black,
+                ), */
+                // SquareTile(imagePath: 'images/photo.png'),
+                Image.asset(
+                  'images/photo.png',
+                  width: 120.0,
                 ),
-              ),
+                const SizedBox(height: 50),
 
-              const SizedBox(height: 25),
+                // welcome back, you've been missed!
+                /* Text(
+                  'Castle Event Lens!',
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                    fontSize: 24,
+                  ),
+                ), */
+                Text(
+                  'Castle Event Lens!',
+                  style: const TextStyle(
+                    fontSize: 40.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Nisebuschgardens',
+                  ),
+                ),
 
-              // username textfield
-              MyTextField(
-                controller: usernameController,
-                hintText: 'Username',
-                obscureText: false,
-              ),
+                const SizedBox(height: 25),
 
-              const SizedBox(height: 10),
+                // username textfield
+                MyTextField(
+                  controller: usernameController,
+                  hintText: 'Username',
+                  obscureText: false,
+                ),
 
-              // password textfield
-              MyTextField(
-                controller: passwordController,
-                hintText: 'Password',
-                obscureText: true,
-              ),
+                const SizedBox(height: 10),
 
-              const SizedBox(height: 10),
+                // password textfield
+                MyTextField(
+                  controller: passwordController,
+                  hintText: 'Password',
+                  obscureText: true,
+                ),
 
-              // forgot password?
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                const SizedBox(height: 10),
+
+                // forgot password?
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Forgot Password?',
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 25),
+
+                // sign in button
+                MyButton(
+                  onTap: () async {
+                    print("login");
+                     User? user = await _authService.loginUsingEmailPassword(
+                        //loginUsingEmailPassword
+                        email: usernameController.text,
+                        password: passwordController.text,
+                        context: context);
+                    if (user != null) {
+                      SharedPreferences sharedPreferences =
+                          await SharedPreferences.getInstance();
+                      final List<String> items =
+                          sharedPreferences.getStringList('acces_token')!;
+                      items.add(user.uid);
+                      await sharedPreferences.setStringList('acces_token', items);
+                      //APROVECHO PARA EDITAR EL TOKENTELEFONICO
+                      final updateSnapshot = await userService.usuario
+                          .doc(items[1])
+                          .update({'phoneToken': items[0]})
+                          .then((value) => print("User Updated"))
+                          .catchError(
+                              (error) => print("Failed to update user: $error"));
+                      Navigator.pushNamed(context, "profile");
+                    } else {
+                      Widgets.alertSnackbar(context, "Datos incorrectos");
+                    }
+                  },
+                ),
+
+                const SizedBox(height: 50),
+
+                // or continue with
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          'O continua con',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 50),
+
+                // google + apple sign in buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    // google button
+                    SquareTile(imagePath: 'images/google.png'),
+
+                    SizedBox(width: 25),
+
+                    // apple button
+                    SquareTile(imagePath: 'images/apple.png')
+                  ],
+                ),
+
+                const SizedBox(height: 50),
+
+                // not a member? register now
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Forgot Password?',
-                      style: TextStyle(color: Colors.grey[600]),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 25),
-
-              // sign in button
-              MyButton(
-                onTap: () async {
-                  User? user = await _authService.loginUsingEmailPassword(
-                      //loginUsingEmailPassword
-                      email: usernameController.text,
-                      password: passwordController.text,
-                      context: context);
-                  if (user != null) {
-                    SharedPreferences sharedPreferences =
-                        await SharedPreferences.getInstance();
-                    final List<String> items =
-                        sharedPreferences.getStringList('acces_token')!;
-                    items.add(user.uid);
-                    await sharedPreferences.setStringList('acces_token', items);
-                    //APROVECHO PARA EDITAR EL TOKENTELEFONICO
-                    final updateSnapshot = await userService.usuario
-                        .doc(items[1])
-                        .update({'phoneToken': items[0]})
-                        .then((value) => print("User Updated"))
-                        .catchError(
-                            (error) => print("Failed to update user: $error"));
-                    Navigator.pushNamed(context, "profile");
-                  } else {
-                    Widgets.alertSnackbar(context, "Datos incorrectos");
-                  }
-                },
-              ),
-
-              const SizedBox(height: 50),
-
-              // or continue with
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
+                      'No eres Miembro?',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 18,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text(
-                        'Or continue with',
-                        style: TextStyle(color: Colors.grey[700]),
-                      ),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
+                    const SizedBox(width: 4),
+                    const Text(
+                      'Registrate Ahora',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
-                ),
-              ),
-
-              const SizedBox(height: 50),
-
-              // google + apple sign in buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  // google button
-                  SquareTile(imagePath: 'images/google.png'),
-
-                  SizedBox(width: 25),
-
-                  // apple button
-                  SquareTile(imagePath: 'images/apple.png')
-                ],
-              ),
-
-              const SizedBox(height: 50),
-
-              // not a member? register now
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Not a member?',
-                    style: TextStyle(color: Colors.grey[700]),
-                  ),
-                  const SizedBox(width: 4),
-                  const Text(
-                    'Register now',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

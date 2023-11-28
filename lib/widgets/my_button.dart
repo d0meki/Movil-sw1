@@ -13,16 +13,25 @@ class MyButton extends StatelessWidget {
         padding: const EdgeInsets.all(25),
         margin: const EdgeInsets.symmetric(horizontal: 25),
         decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(8),
+          // color: Colors.black,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.purple,
+              Colors.pink,
+            ],
+          ),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: const Center(
           child: Text(
-            "Sign In",
+            "Iniciar Sesión",
             style: TextStyle(
               color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
+              fontWeight: FontWeight.normal,
+              fontSize: 24,
+              fontFamily: 'Nisebuschgardens',
             ),
           ),
         ),

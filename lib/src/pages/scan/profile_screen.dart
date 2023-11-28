@@ -46,63 +46,75 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       ),
-      backgroundColor: Colors.blueGrey[800],
-      body: SafeArea(
-          child: FutureBuilder(
-        future: getDataProfile(),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.hasData) {
-            return Column(
-              children: <Widget>[
-                const SizedBox(
-                  height: 10,
-                ),
-                CircleAvatar(
-                  radius: 60,
-                  backgroundImage: NetworkImage(snapshot.data['avatar']),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  snapshot.data['nombre'],
-                  style: const TextStyle(
-                    fontSize: 40.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Nisebuschgardens',
+      // backgroundColor: Colors.purple[800],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.pink,
+              Colors.purple,
+            ],
+          ),
+        ),
+        child: SafeArea(
+            child: FutureBuilder(
+          future: getDataProfile(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.hasData) {
+              return Column(
+                children: <Widget>[
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "",
-                  style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.blueGrey[200],
-                      letterSpacing: 2.5,
+                  CircleAvatar(
+                    radius: 60,
+                    backgroundImage: NetworkImage(snapshot.data['avatar']),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    snapshot.data['nombre'],
+                    style: const TextStyle(
+                      fontSize: 40.0,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontFamily: "Source Sans Pro"),
-                ),
-                const SizedBox(
-                  height: 20,
-                  width: 200,
-                  child: Divider(
-                    color: Colors.white,
+                      fontFamily: 'Nisebuschgardens',
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                InfoCard(text: snapshot.data['telefono'], icon: Icons.phone),
-                InfoCard(text: snapshot.data['email'], icon: Icons.email),
-              ],
-            );
-          }
-          return const Center(child: CircularProgressIndicator());
-        },
-      )),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "",
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.blueGrey[200],
+                        letterSpacing: 2.5,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Source Sans Pro"),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                    width: 200,
+                    child: Divider(
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  InfoCard(text: snapshot.data['telefono'], icon: Icons.phone),
+                  InfoCard(text: snapshot.data['email'], icon: Icons.email),
+                ],
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
+          },
+        )),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -116,7 +128,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             },
             label: const Text('Invitacion Leer Qr'),
             icon: const Icon(Icons.qr_code),
-            backgroundColor: Colors.blueGrey,
+            backgroundColor: Colors.black,
           ),
           const SizedBox(
             height: 5,
@@ -128,7 +140,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             },
             label: const Text('Lista de Eventos'),
             icon: const Icon(Icons.remove_red_eye),
-            backgroundColor: Colors.blueGrey,
+            backgroundColor: Colors.black,
           ),
           const SizedBox(
             height: 5,
@@ -140,7 +152,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             },
             label: const Text('Mis Fotos'),
             icon: const Icon(Icons.photo_camera_back_outlined),
-            backgroundColor: Colors.blueGrey,
+            backgroundColor: Colors.black,
           ),
         ],
       ),
